@@ -1,0 +1,34 @@
+name: Manuel Dağıtım
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_target:
+        description: 'Dağıtım Hedefi Seçin'
+        required: true
+        default: 'test'
+        type: choice
+        options:
+          - test
+          - staging
+          - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dağıtım Hedefini Göster
+        run: echo "Seçilen Dağıtım Hedefi: ${{ inputs.deploy_target }}"
+
+      - name: Dağıtım İşlemini Gerçekleştir
+        run: |
+          if [ "${{ inputs.deploy_target }}" == "production" ]; then
+            echo "Production ortamına dağıtım yapılıyor..."
+            # Production dağıtım komutları buraya eklenir
+          elif [ "${{ inputs.deploy_target }}" == "staging" ]; then
+            echo "Staging ortamına dağıtım yapılıyor..."
+            # Staging dağıtım komutları buraya eklenir
+          else
+            echo "Test ortamına dağıtım yapılıyor..."
+            # Test dağıtım komutları buraya eklenir
+          fi
